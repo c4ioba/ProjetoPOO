@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.Random;
+
 public final class ContaCorrente extends Conta{
 
 	private double taxaCartao;

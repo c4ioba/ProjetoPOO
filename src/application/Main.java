@@ -15,12 +15,17 @@ public class Main{
 		Locale.setDefault(Locale.US);
 			Scanner scan = new Scanner(System.in);
 			List<Conta> lista = new ArrayList<>();
-			
+				
+				System.out.println("-------Área de Cadastro-------");
 				System.out.println("Nome: ");
 				String nome = scan.nextLine();
 				System.out.println("Senha: ");
 				String senha = scan.nextLine();
-
+				
+				Conta c1 = new ContaCorrente();
+				
+				c1.gerarNumeroCartao();
+				
 				
 	}
 

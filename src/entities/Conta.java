@@ -1,5 +1,6 @@
 package entities;
 
+import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Conta {
@@ -64,7 +65,31 @@ public abstract class Conta {
         System.out.println("Depósito realizado. Saldo atual: " + saldo);
     }
 	
-	
+	public void gerarNumeroCartao() {
+		System.out.println("Número do Cartão: ");
+		Random gerador = new Random();
+		
+		for (int i = 0; i < 4; i++) {
+			int numeroAleatorio = gerador.nextInt(9);
+			System.out.print(numeroAleatorio);
+		}
+		System.out.print("-");
+		for (int i = 0; i < 4; i++) {
+			int numeroAleatorio = gerador.nextInt(9);
+			System.out.print(numeroAleatorio);
+		}
+		System.out.print("-");
+		for (int i = 0; i < 4; i++) {
+			int numeroAleatorio = gerador.nextInt(9);
+			System.out.print(numeroAleatorio);
+		}
+		System.out.print("-");
+		for (int i = 0; i < 4; i++) {
+			int numeroAleatorio = gerador.nextInt(9);
+			System.out.print(numeroAleatorio);
+		}
+		
+	}
 	
 	
 }
