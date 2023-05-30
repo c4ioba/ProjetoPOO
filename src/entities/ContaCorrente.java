@@ -1,6 +1,6 @@
 package entities;
 
-import java.util.Random;
+//import java.util.Random;
 
 public final class ContaCorrente extends Conta{
 
@@ -13,6 +13,8 @@ public final class ContaCorrente extends Conta{
 		super(nome, senha, agencia, numeroConta, saldo);
 		this.taxaCartao = taxaCartao;
 	}
+
+    
 
 	public void investir(double valor) {
         if (getSaldo() >= valor) {
