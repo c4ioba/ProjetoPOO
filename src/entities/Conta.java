@@ -1,12 +1,14 @@
 package entities;
 
+//import java.util.ArrayList;
+import java.util.HashMap;
 //import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
 public abstract class Conta {
-	// private String numeroConta;
-	// private double saldo;
+	
 	// private List<String> extrato;
 
 	private String nome;
@@ -132,20 +134,34 @@ public abstract class Conta {
 		}
 
 	}
+//construtor
+	public void Cadastro(String nome,String senha){
+		this.nome = nome;
+		this.senha = senha;
 
-	//fazer um cadastro com array  para ter mais de um login   , o metodo so esta salvando apenas um login
-	public void cadastro() {
+	}
+
+	
+	Map<String, String> usuarios = new HashMap<>();	
+	public <Cadastro> void cadastro() {
+		
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("Nome: ");
-		String nome = scan.nextLine();
-		setNome(nome);
-		System.out.println("Senha: ");
-		String senha = scan.nextLine();
-		setSenha(senha);
+	
 
-		System.out.println("Nome:" + nome + " Senha:" + senha);
-		System.out.println("---------------------------------");
+		System.out.print("Digite o nome de usuário: ");
+        String usuario = scan.nextLine();
+        if (usuarios.containsKey(usuario)) {
+            System.out.println("Usuário já existe!");
+            return;
+        }
+
+        System.out.print("Digite a senha: ");
+        String senha = scan.nextLine();
+
+        usuarios.put(usuario, senha);
+        System.out.println("Usuário cadastrado com sucesso!");
+
 		gerarNumeroCartao();
 
 		System.out.println("");
@@ -164,27 +180,24 @@ public abstract class Conta {
 	 * }
 	 */
 
-	public void Login(String nome, String senha) {
-
+	public void Login() {
 		Scanner scanner = new Scanner(System.in);
 
-		String username = getNome();
-		String password = getSenha();
+		System.out.print("Digite o nome de usuário: ");
+        String usuario = scanner.nextLine();
+        System.out.print("Digite a senha: ");
+        String senha = scanner.nextLine();
 
-		System.out.println("Digite seu nome de usuário: ");
-		String inputUsername = scanner.nextLine();
-
-		System.out.println("Digite sua senha: ");
-		String inputPassword = scanner.nextLine();
-
-		if (inputUsername.equals(username) && inputPassword.equals(password)) {
-			System.out.println("Login bem-sucedido!");
+        if (usuarios.containsKey(usuario) && usuarios.get(usuario).equals(senha)) {
+            System.out.println("Login realizado com sucesso!");
 			limpar();
 			menuLogin();
-		} else {
-			System.out.println("Nome de usuário ou senha inválidos. Tente Novamente");
-		}
-
+        } else {
+            System.out.println("Nome de usuário ou senha incorretos!");
+        }
+		
+		
+	
 		limpar();
 	}
 

@@ -38,7 +38,7 @@ public class Main {
 					c1.cadastro();
 					break;
 				case 2:
-					c1.Login(null, null);
+					c1.Login();
 					break;
 				case 3:
 					sair = true;
