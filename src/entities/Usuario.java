@@ -1,15 +1,15 @@
 package entities;
 
 public class Usuario {
-	
+
 	private String nome;
 	private String cpf;
 	private String gmail;
 	private String senha;
 	private String numeroDoCartao;
-	
+
 	public Usuario() {
-		
+
 	}
 
 	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao) {
@@ -59,7 +59,5 @@ public class Usuario {
 	public void setNumeroDoCartao(String numeroDoCartao) {
 		this.numeroDoCartao = numeroDoCartao;
 	}
-	
-	
-	
+
 }

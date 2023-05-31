@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import org.w3c.dom.UserDataHandler;
+import javax.swing.JOptionPane;
 
 import entities.exception.ExcessaoConta;
 
-public abstract class Conta {
-	
-	// private List<String> extrato;
+public class Conta {
+
+	ArrayList<Double> extrato = new ArrayList<>();
 	List<Usuario> list = new ArrayList<>();
 	Usuario users = new Usuario();
 	private int agencia;
@@ -46,21 +46,22 @@ public abstract class Conta {
 
 	public void Saque(double valor) throws ExcessaoConta {
 		Scanner scanner = new Scanner(System.in);
-		
-		
+
 		System.out.print("Digite o valor que deseja sacar: ");
 		double valorSaque = scanner.nextDouble();
-		
+
 		if (valorSaque < saldo && valorSaque > 0.0) {
+
 			saldo -= valorSaque;
+			extrato.add(valorSaque);
 			System.out.println("Saque realizado com sucesso!");
 			System.out.println("Saldo atual: " + saldo);
 
-		} 
-		if (valorSaque > saldo){
+		}
+		if (valorSaque > saldo) {
 			throw new ExcessaoConta("Você não possui o saldo suficiente na sua conta para realizar o Saque.");
 		}
-		if(valorSaque < 0.0) {
+		if (valorSaque < 0.0) {
 			throw new ExcessaoConta("Você não pode inserir um valor menor que 0!");
 		}
 	}
@@ -71,7 +72,9 @@ public abstract class Conta {
 		double valorDepositar = scanner.nextDouble();
 
 		if (valorDepositar > 0) {
+
 			saldo += valorDepositar;
+			extrato.add(valorDepositar);
 			System.out.println("Depósito realizado com sucesso!");
 		} else {
 			System.out.println("O valor do depósito deve ser maior que zero.");
@@ -79,138 +82,155 @@ public abstract class Conta {
 
 	}
 
-	    public static String gerarNumeroCartao() {
-			return null;
-	        
-	    }
+	public void exibirExtrato() {
 
-	
-	
-	public void cadastro() {
-	
-		Scanner scan = new Scanner(System.in);
+		for (Double numero : extrato) {
+			System.out.println(numero);
+		}
 
-		System.out.print("Digite o nome de Usuário: ");
-        String nome = scan.nextLine();
-        System.out.print("Digite o CPF: ");
-        String cpf = scan.nextLine();
-        System.out.print("Digite o Gmail: ");
-        String gmail = scan.nextLine();
-        System.out.print("Digite a senha da conta: ");
-        String senha = scan.nextLine();
-        
-        //GERANDO NUMERO DE CARTAO
-        StringBuilder numero = new StringBuilder();
-
-        int length = 16;
-        int groupSize = 4;
-        
-        Random random = new Random();
-
-        // Gere os dígitos do número do cartão
-        for (int i = 0; i < length; i++) {
-            if (i > 0 && i % groupSize == 0) {
-                numero.append("-");
-            }
-            int digit = random.nextInt(10);
-            numero.append(digit);
-        }
-        String numeroDoCartao = numero.toString();
-        System.out.print("Seu número de Cartão: ");
-        System.out.println(numero.toString());
-        
-        Usuario users = new Usuario(nome, cpf, gmail, senha, numeroDoCartao);
-        list.add(users);
+		System.out.println(extrato);
 	}
-	
-	/*
-	 * Iremos ter que criar uma classe so para transiçoes igual a que te mandei no
-	 * zap e botar nossos metodos la
-	 * public void exibirExtrato() {
-	 * System.out.println("Extrato da Conta " + numeroConta);
-	 * for (String transacao : extrato) {
-	 * System.out.println(transacao);
-	 * }
-	 * System.out.println("Saldo atual: " + saldo);
-	 * }
-	 */
+
+	public static String gerarNumeroCartao() {
+		return null;
+
+	}
+
+	public void cadastro() {
+
+		// Scanner scan = new Scanner(System.in);
+
+		String nome = JOptionPane.showInputDialog("Digite o nome do Usuario");
+		// System.out.print("Digite o nome de Usuário: ");
+		// String nome = scan.nextLine();
+		String cpf = JOptionPane.showInputDialog("Digite CPF");
+		// System.out.print("Digite o CPF: ");
+		// String cpf = scan.nextLine();
+		String gmail = JOptionPane.showInputDialog("Digite o Gmail");
+		// System.out.print("Digite o Gmail: ");
+		// String gmail = scan.nextLine();
+		String senha = JOptionPane.showInputDialog("Digite a senha da conta");
+		// System.out.print("Digite a senha da conta: ");
+		// String senha = scan.nextLine();
+
+		// GERANDO NUMERO DE CARTAO
+		StringBuilder numero = new StringBuilder();
+
+		int length = 16;
+		int groupSize = 4;
+
+		Random random = new Random();
+
+		// Gere os dígitos do número do cartão
+		for (int i = 0; i < length; i++) {
+			if (i > 0 && i % groupSize == 0) {
+				numero.append("-");
+			}
+			int digit = random.nextInt(10);
+			numero.append(digit);
+		}
+		String numeroDoCartao = numero.toString();
+
+		// System.out.print("Seu número de Cartão: ");
+		// System.out.println(numero.toString());
+		JOptionPane.showMessageDialog(null, "Seu numero  de Cartão: " + numero.toString());
+
+		Usuario users = new Usuario(nome, cpf, gmail, senha, numeroDoCartao);
+		list.add(users);
+
+	}
 
 	public void Login() throws Exception {
-		Scanner scanner = new Scanner(System.in);
+		// Scanner scanner = new Scanner(System.in);
+		String usuarioNome = JOptionPane.showInputDialog("Digite o nome do Usuario");
+		// System.out.print("Digite o nome de usuário: ");
+		// String usuarioNome = scanner.nextLine();
+		String senha = JOptionPane.showInputDialog("Digite a  senha");
+		// System.out.print("Digite a senha: ");
+		// String senha = scanner.nextLine();
 
-		System.out.print("Digite o nome de usuário: ");
-        String usuarioNome = scanner.nextLine();
-        System.out.print("Digite a senha: ");
-        String senha = scanner.nextLine();
-        
-        for (Usuario usuario2 : list) {
-			if(usuario2.getNome().equals(usuarioNome) && usuario2.getSenha().equals(senha)) {
-				System.out.println("Login feito com sucesso!");
-				menuLogin();
-			}
-			else {
+		for (Usuario usuario2 : list) {
+			if (usuario2.getNome().equals(usuarioNome) && usuario2.getSenha().equals(senha)) {
+				JOptionPane.showMessageDialog(null, "Login feito  com sucesso ");
+				// System.out.println("Login feito com sucesso!");
+				// menuLogin();
+				exibirMenuLogin();
+			} else {
+				JOptionPane.showMessageDialog(null, "Usuario ou senha Incorretas ");
 				throw new ExcessaoConta("Usuário ou Senha Incorretos!");
 			}
 		}
-		
+
 		limpar();
 	}
 
-	//
-	public void menuLogin() throws ExcessaoConta {
-		boolean sair = false;
-		Scanner scanner = new Scanner(System.in);
-		while (!sair) {
-			exibirMenuLogin();
-			int opcao = scanner.nextInt();
-			scanner.nextLine(); // Limpar o buffer do scanner
+	// menu Login
+	public void exibirMenuLogin() throws ExcessaoConta {
+		String[] opcoes = { "Saldo", "Sacar", "Depositar", "Extrato", "Sair da conta" };
 
-			switch (opcao) {
+		while (true) {
+			int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção:", "Menu", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
+
+			switch (escolha) {
+				case 0:
+					getSaldo();
+
+					break;
 				case 1:
-					// Mostrar o saldo
-					System.out.println(getSaldo());
+					Saque(getSaldo());
 					break;
 				case 2:
-					Saque(getSaldo());
+					depositar();
 
 					break;
 				case 3:
-					depositar();
-					// exibirExtrato();
+					exibirExtrato();
+
 					break;
 				case 4:
-
-					// exibirExtrato();
-					break;
-				case 5:
-					sair = true;
-					System.out.println("Saindo da conta....");
+					JOptionPane.showMessageDialog(null, "Saindo da conta...");
+					System.exit(0);
 					break;
 				default:
-					System.out.println("Opção inválida! Tente novamente.");
-					break;
+					JOptionPane.showMessageDialog(null, "Opção inválida! Tente  .");
 			}
 		}
-	}
 
-	// menu Login
-	public void exibirMenuLogin() {
-		System.out.println("===== Conta =====");
-		System.out.println("1. Saldo");
-		System.out.println("2. Sacar");
-		System.out.println("3. Depositar");
-		System.out.println("4. Extrato");
-		System.out.println("5. Sair da conta");
-		System.out.print("Escolha uma opção: ");
+		// System.out.println("===== Conta =====");
+		// System.out.println("1. Saldo");
+		// System.out.println("2. Sacar");
+		// System.out.println("3. Depositar");
+		// System.out.println("4. Extrato");
+		// System.out.println("5. Sair da conta");
+		// System.out.print("Escolha uma opção: ");
 	}
 
 	// menu abertura do app esta ligado com o swith case que esta no main
-	public void exibirMenu() {
-		System.out.println("===== MENU =====");
-		System.out.println("1. Cadastro");
-		System.out.println("2. Login");
-		System.out.println("3. Sair");
-		System.out.print("Escolha uma opção: ");
+	public void exibirMenu() throws Exception {
+		String[] opcoes = { "Cadastro", "Login", "Sair", };
+
+		while (true) {
+			int escolha = JOptionPane.showOptionDialog(null, "Selecione uma opção:", "Menu", JOptionPane.DEFAULT_OPTION,
+					JOptionPane.PLAIN_MESSAGE, null, opcoes, opcoes[0]);
+
+			switch (escolha) {
+				case 0:
+					cadastro();
+					break;
+				case 1:
+
+					Login();
+					break;
+
+				case 2:
+					JOptionPane.showMessageDialog(null, "Saindo...");
+					System.exit(0);
+					break;
+				default:
+					JOptionPane.showMessageDialog(null, "Opção inválida.");
+			}
+		}
 	}
 
 	// limpar cmd
