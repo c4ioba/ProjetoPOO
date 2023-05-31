@@ -1,9 +1,10 @@
 package entities;
 
 import java.util.ArrayList;
+
 import java.util.List;
+
 import java.util.Random;
-import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
@@ -45,39 +46,60 @@ public class Conta {
 	}
 
 	public void Saque(double valor) throws ExcessaoConta {
-		Scanner scanner = new Scanner(System.in);
 
-		System.out.print("Digite o valor que deseja sacar: ");
-		double valorSaque = scanner.nextDouble();
+		String aux = JOptionPane.showInputDialog("Digite o valor que deseja sacar");
+		// System.out.print("Digite o valor que deseja sacar: ");
+
+		double valorSaque = 0;
+		try {
+			valorSaque = Double.parseDouble(aux);
+			JOptionPane.showMessageDialog(null, "Numero digitado " + valorSaque);
+			// System.out.println("Número digitado: " + valorSaque);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Número inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 
 		if (valorSaque < saldo && valorSaque > 0.0) {
 
 			saldo -= valorSaque;
 			extrato.add(valorSaque);
-			System.out.println("Saque realizado com sucesso!");
-			System.out.println("Saldo atual: " + saldo);
+			JOptionPane.showMessageDialog(null, "Saque realizado com sucessso!");
+			JOptionPane.showMessageDialog(null, "Saldo atual: " + saldo);
+			// System.out.println("Saque realizado com sucesso!");
+			// System.out.println("Saldo atual: " + saldo);
 
 		}
 		if (valorSaque > saldo) {
+			JOptionPane.showMessageDialog(null,
+					"Voce nao possui o saldo suficiente na usa conta para realizar o Saque");
 			throw new ExcessaoConta("Você não possui o saldo suficiente na sua conta para realizar o Saque.");
 		}
 		if (valorSaque < 0.0) {
+			JOptionPane.showMessageDialog(null, "Você não pode inserir um valor menor que 0!");
 			throw new ExcessaoConta("Você não pode inserir um valor menor que 0!");
 		}
 	}
 
 	public void depositar() {
-		Scanner scanner = new Scanner(System.in);
-		System.out.print("Digite o valor que deseja depositar: ");
-		double valorDepositar = scanner.nextDouble();
+
+		String aux2 = JOptionPane.showInputDialog("Digite o valor que deseja Depositar");
+		double valorDepositar = 0;
+		try {
+			valorDepositar = Double.parseDouble(aux2);
+			JOptionPane.showMessageDialog(null, "Numero digitado " + valorDepositar);
+		} catch (NumberFormatException e) {
+			JOptionPane.showMessageDialog(null, "Número inválido!", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
 
 		if (valorDepositar > 0) {
 
 			saldo += valorDepositar;
 			extrato.add(valorDepositar);
-			System.out.println("Depósito realizado com sucesso!");
+			JOptionPane.showMessageDialog(null, "Depósito realizado com sucesso!");
+			// System.out.println("Depósito realizado com sucesso!");
 		} else {
-			System.out.println("O valor do depósito deve ser maior que zero.");
+			JOptionPane.showMessageDialog(null, "O valor do depósito deve ser maior que zero.");
+			// System.out.println("O valor do depósito deve ser maior que zero.");
 		}
 
 	}
@@ -85,10 +107,11 @@ public class Conta {
 	public void exibirExtrato() {
 
 		for (Double numero : extrato) {
-			System.out.println(numero);
+			JOptionPane.showMessageDialog(null, "Extrato:   " + numero);
+			// System.out.println(numero);
 		}
 
-		System.out.println(extrato);
+		// System.out.println(extrato);
 	}
 
 	public static String gerarNumeroCartao() {
@@ -174,7 +197,8 @@ public class Conta {
 
 			switch (escolha) {
 				case 0:
-					getSaldo();
+					JOptionPane.showMessageDialog(null, "Seu Saldo: " + getSaldo());
+					// getSaldo();
 
 					break;
 				case 1:
