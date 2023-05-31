@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.List;
+
 public final class ContaPoupanca extends Conta{
 	
 	private Double limiteConta;
@@ -7,9 +9,9 @@ public final class ContaPoupanca extends Conta{
 	public ContaPoupanca() {
 		
 	}
-	
-	public ContaPoupanca(String nome, String senha, int agencia, double numeroConta, double saldo, Double limiteConta) {
-		super(nome, senha, agencia, numeroConta, saldo);
+
+	public ContaPoupanca(List<Usuario> list, Usuario users, int agencia, double saldo, Double limiteConta) {
+		super(list, users, agencia, saldo);
 		this.limiteConta = limiteConta;
 	}
 

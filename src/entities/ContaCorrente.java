@@ -1,5 +1,7 @@
 package entities;
 
+import java.util.List;
+
 //import java.util.Random;
 
 public final class ContaCorrente extends Conta{
@@ -9,12 +11,10 @@ public final class ContaCorrente extends Conta{
 	public ContaCorrente() {
 	}
 
-	public ContaCorrente(String nome, String senha, int agencia, double numeroConta, double saldo, double taxaCartao) {
-		super(nome, senha, agencia, numeroConta, saldo);
+	public ContaCorrente(List<Usuario> list, Usuario users, int agencia, double saldo, double taxaCartao) {
+		super(list, users, agencia, saldo);
 		this.taxaCartao = taxaCartao;
 	}
-
-    
 
 	public void investir(double valor) {
         if (getSaldo() >= valor) {

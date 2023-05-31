@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import entities.Conta;
 import entities.ContaCorrente;
+import entities.exception.ExcessaoConta;
 //import entities.ContaPoupanca;
 
 /*
@@ -15,19 +16,15 @@ import entities.ContaCorrente;
  */
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		Locale.setDefault(Locale.US);
 		Conta c1 = new ContaCorrente();
 		Scanner scanner = new Scanner(System.in);
 		boolean sair = false;
-		// List<Conta> lista = new ArrayList<>();
-		//c1.depositar(10000);
-		
 
 		System.out.println("-------Área de Cadastro-------");
-		// c1.cadastro();
-		// c1.gerarNumeroCartao();
-
+		
+		try {	
 		while (!sair) {
 			c1.exibirMenu();
 			int opcao = scanner.nextInt();
@@ -49,11 +46,8 @@ public class Main {
 					break;
 			}
 		}
-
-		
-		scanner.close();
-		
+		} catch (ExcessaoConta e) {
+			System.out.println(e.getMessage());
+		}
 	}
-
-	
 }

@@ -1,57 +1,31 @@
 package entities;
 
-//import java.util.ArrayList;
-import java.util.HashMap;
-//import java.util.List;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
+
+import org.w3c.dom.UserDataHandler;
+
+import entities.exception.ExcessaoConta;
 
 public abstract class Conta {
 	
 	// private List<String> extrato;
-
-	private String nome;
-	private String senha;
+	List<Usuario> list = new ArrayList<>();
+	Usuario users = new Usuario();
 	private int agencia;
-	private double numeroConta;
 	private double saldo;
-	private double depositar;
-
-	public double getDepositar() {
-		return depositar;
-	}
-
-	public void setDepositar(double depositar) {
-		this.depositar = depositar;
-	}
 
 	public Conta() {
 
 	}
 
-	public Conta(String nome, String senha, int agencia, double numeroConta, double saldo) {
-		this.nome = nome;
-		this.senha = senha;
+	public Conta(List<Usuario> list, Usuario users, int agencia, double saldo) {
+		this.list = list;
+		this.users = users;
 		this.agencia = agencia;
-		this.numeroConta = numeroConta;
 		this.saldo = saldo;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	private String getSenha() {
-		return senha;
-	}
-
-	private void setSenha(String senha) {
-		this.senha = senha;
 	}
 
 	public int getAgencia() {
@@ -62,14 +36,6 @@ public abstract class Conta {
 		this.agencia = agencia;
 	}
 
-	public double getNumeroConta() {
-		return numeroConta;
-	}
-
-	public void setNumeroConta(double numeroConta) {
-		this.numeroConta = numeroConta;
-	}
-
 	public double getSaldo() {
 		return saldo;
 	}
@@ -78,21 +44,25 @@ public abstract class Conta {
 		this.saldo = saldo;
 	}
 
-	public void Saque(double valor) {
+	public void Saque(double valor) throws ExcessaoConta {
 		Scanner scanner = new Scanner(System.in);
+		
+		
 		System.out.print("Digite o valor que deseja sacar: ");
 		double valorSaque = scanner.nextDouble();
-
-		if (valorSaque <= saldo) {
+		
+		if (valorSaque < saldo && valorSaque > 0.0) {
 			saldo -= valorSaque;
 			System.out.println("Saque realizado com sucesso!");
 			System.out.println("Saldo atual: " + saldo);
 
-		} else {
-			System.out.println("Saldo insuficiente. Saque não realizado.");
-
+		} 
+		if (valorSaque > saldo){
+			throw new ExcessaoConta("Você não possui o saldo suficiente na sua conta para realizar o Saque.");
 		}
-
+		if(valorSaque < 0.0) {
+			throw new ExcessaoConta("Você não pode inserir um valor menor que 0!");
+		}
 	}
 
 	public void depositar() {
@@ -109,65 +79,50 @@ public abstract class Conta {
 
 	}
 
-	public void gerarNumeroCartao() {
-		System.out.println("Número do Cartão: ");
-		Random gerador = new Random();
-
-		for (int i = 0; i < 4; i++) {
-			int numeroAleatorio = gerador.nextInt(9);
-			System.out.print(numeroAleatorio);
-		}
-		System.out.print("-");
-		for (int i = 0; i < 4; i++) {
-			int numeroAleatorio = gerador.nextInt(9);
-			System.out.print(numeroAleatorio);
-		}
-		System.out.print("-");
-		for (int i = 0; i < 4; i++) {
-			int numeroAleatorio = gerador.nextInt(9);
-			System.out.print(numeroAleatorio);
-		}
-		System.out.print("-");
-		for (int i = 0; i < 4; i++) {
-			int numeroAleatorio = gerador.nextInt(9);
-			System.out.print(numeroAleatorio);
-		}
-
-	}
-//construtor
-	public void Cadastro(String nome,String senha){
-		this.nome = nome;
-		this.senha = senha;
-
-	}
+	    public static String gerarNumeroCartao() {
+			return null;
+	        
+	    }
 
 	
-	Map<String, String> usuarios = new HashMap<>();	
-	public <Cadastro> void cadastro() {
-		
+	
+	public void cadastro() {
+	
 		Scanner scan = new Scanner(System.in);
 
-	
-
-		System.out.print("Digite o nome de usuário: ");
-        String usuario = scan.nextLine();
-        if (usuarios.containsKey(usuario)) {
-            System.out.println("Usuário já existe!");
-            return;
-        }
-
-        System.out.print("Digite a senha: ");
+		System.out.print("Digite o nome de Usuário: ");
+        String nome = scan.nextLine();
+        System.out.print("Digite o CPF: ");
+        String cpf = scan.nextLine();
+        System.out.print("Digite o Gmail: ");
+        String gmail = scan.nextLine();
+        System.out.print("Digite a senha da conta: ");
         String senha = scan.nextLine();
+        
+        //GERANDO NUMERO DE CARTAO
+        StringBuilder numero = new StringBuilder();
 
-        usuarios.put(usuario, senha);
-        System.out.println("Usuário cadastrado com sucesso!");
+        int length = 16;
+        int groupSize = 4;
+        
+        Random random = new Random();
 
-		gerarNumeroCartao();
-
-		System.out.println("");
-
-		limpar();
+        // Gere os dígitos do número do cartão
+        for (int i = 0; i < length; i++) {
+            if (i > 0 && i % groupSize == 0) {
+                numero.append("-");
+            }
+            int digit = random.nextInt(10);
+            numero.append(digit);
+        }
+        String numeroDoCartao = numero.toString();
+        System.out.print("Seu número de Cartão: ");
+        System.out.println(numero.toString());
+        
+        Usuario users = new Usuario(nome, cpf, gmail, senha, numeroDoCartao);
+        list.add(users);
 	}
+	
 	/*
 	 * Iremos ter que criar uma classe so para transiçoes igual a que te mandei no
 	 * zap e botar nossos metodos la
@@ -180,29 +135,29 @@ public abstract class Conta {
 	 * }
 	 */
 
-	public void Login() {
+	public void Login() throws Exception {
 		Scanner scanner = new Scanner(System.in);
 
 		System.out.print("Digite o nome de usuário: ");
-        String usuario = scanner.nextLine();
+        String usuarioNome = scanner.nextLine();
         System.out.print("Digite a senha: ");
         String senha = scanner.nextLine();
-
-        if (usuarios.containsKey(usuario) && usuarios.get(usuario).equals(senha)) {
-            System.out.println("Login realizado com sucesso!");
-			limpar();
-			menuLogin();
-        } else {
-            System.out.println("Nome de usuário ou senha incorretos!");
-        }
+        
+        for (Usuario usuario2 : list) {
+			if(usuario2.getNome().equals(usuarioNome) && usuario2.getSenha().equals(senha)) {
+				System.out.println("Login feito com sucesso!");
+				menuLogin();
+			}
+			else {
+				throw new ExcessaoConta("Usuário ou Senha Incorretos!");
+			}
+		}
 		
-		
-	
 		limpar();
 	}
 
 	//
-	public void menuLogin() {
+	public void menuLogin() throws ExcessaoConta {
 		boolean sair = false;
 		Scanner scanner = new Scanner(System.in);
 		while (!sair) {
@@ -262,7 +217,7 @@ public abstract class Conta {
 	public void limpar() {
 		// Faz o metodo aguardar 3 segundos para limpar o cmd
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(0);
 		} catch (InterruptedException e) {
 
 			e.printStackTrace();
