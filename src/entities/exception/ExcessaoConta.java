@@ -1,10 +1,16 @@
 package entities.exception;
 
-public class ExcessaoConta extends Exception{ //Criação da classe de excessão personalizada.
-	private static final long serialVersionUID = 1L;
+import javax.swing.JOptionPane;
+
+/**
+ * CLASSE CRIADA PARA USAR E TRATAR EXCESSÕES DE FORMA PERSONALIZADA.
+ */
+public class ExcessaoConta extends Exception{ 
 	
-	public ExcessaoConta(String msg){
+	public ExcessaoConta(String msg) {
 		super(msg);
 	}
+
+	private static final long serialVersionUID = 1L;
 	
 }

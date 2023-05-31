@@ -1,17 +1,19 @@
 package entities;
 
 public class Usuario {
-
+	
+	//ATRIBUTOS DE UM USUÁRIO
 	private String nome;
 	private String cpf;
 	private String gmail;
 	private String senha;
 	private String numeroDoCartao;
 
+	//CONTRUTOR #1
 	public Usuario() {
 
 	}
-
+	//CONTRUTOR #2
 	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao) {
 		this.nome = nome;
 		this.cpf = cpf;
@@ -20,6 +22,7 @@ public class Usuario {
 		this.numeroDoCartao = numeroDoCartao;
 	}
 
+	//GETTERS E SETTERS
 	public String getNome() {
 		return nome;
 	}
