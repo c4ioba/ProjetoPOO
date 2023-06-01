@@ -1,68 +1,36 @@
 package entities;
 
-public class Usuario {
-
-	// ATRIBUTOS DE UM USUÁRIO
-	private String nome;
-	private String cpf;
-	private String gmail;
-	private String senha;
-	private String numeroDoCartao;
-
-	// CONTRUTOR #1
+public class Usuario extends Pessoa{
+	
+	private double saldo;
+	private double extrato;
+	
 	public Usuario() {
-
+		
+	}
+	
+	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao, double saldo,
+			double extrato) {
+		super(nome, cpf, gmail, senha, numeroDoCartao);
+		this.saldo = saldo;
+		this.extrato = extrato;
 	}
 
-	// CONTRUTOR #2
-	// botar exeção caso nao escreva cpf gmal nome e senha na hora de cadastrar
-	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao) {
-		this.nome = nome;
-		this.cpf = cpf;
-		this.gmail = gmail;
-		this.senha = senha;
-		this.numeroDoCartao = numeroDoCartao;
+	public double getSaldo() {
+		return saldo;
+	}
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
 
-	// GETTERS E SETTERS
-	public String getNome() {
-		return nome;
+	public double getExtrato() {
+		return extrato;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setExtrato(double extrato) {
+		this.extrato = extrato;
 	}
-
-	public String getCpf() {
-		return cpf;
-	}
-
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
-	}
-
-	public String getGmail() {
-		return gmail;
-	}
-
-	public void setGmail(String gmail) {
-		this.gmail = gmail;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	public String getNumeroDoCartao() {
-		return numeroDoCartao;
-	}
-
-	public void setNumeroDoCartao(String numeroDoCartao) {
-		this.numeroDoCartao = numeroDoCartao;
-	}
-
+	
+	
+	
 }
