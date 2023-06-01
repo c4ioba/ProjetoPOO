@@ -1,19 +1,21 @@
 package entities;
 
 public class Usuario {
-	
-	//ATRIBUTOS DE UM USUÁRIO
+
+	// ATRIBUTOS DE UM USUÁRIO
 	private String nome;
 	private String cpf;
 	private String gmail;
 	private String senha;
 	private String numeroDoCartao;
 
-	//CONTRUTOR #1
+	// CONTRUTOR #1
 	public Usuario() {
 
 	}
-	//CONTRUTOR #2
+
+	// CONTRUTOR #2
+	// botar exeção caso nao escreva cpf gmal nome e senha na hora de cadastrar
 	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao) {
 		this.nome = nome;
 		this.cpf = cpf;
@@ -22,7 +24,7 @@ public class Usuario {
 		this.numeroDoCartao = numeroDoCartao;
 	}
 
-	//GETTERS E SETTERS
+	// GETTERS E SETTERS
 	public String getNome() {
 		return nome;
 	}

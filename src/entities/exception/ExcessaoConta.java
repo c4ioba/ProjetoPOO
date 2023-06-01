@@ -1,6 +1,6 @@
 package entities.exception;
 
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 
 /**
  * CLASSE CRIADA PARA USAR E TRATAR EXCESSÕES DE FORMA PERSONALIZADA.
