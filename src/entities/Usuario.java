@@ -1,14 +1,14 @@
 package entities;
 
-public class Usuario extends Pessoa{
-	
+public class Usuario extends Pessoa {
+
 	private double saldo;
 	private double extrato;
-	
+
 	public Usuario() {
-		
+
 	}
-	
+
 	public Usuario(String nome, String cpf, String gmail, String senha, String numeroDoCartao, double saldo,
 			double extrato) {
 		super(nome, cpf, gmail, senha, numeroDoCartao);
@@ -19,6 +19,7 @@ public class Usuario extends Pessoa{
 	public double getSaldo() {
 		return saldo;
 	}
+
 	public void setSaldo(double saldo) {
 		this.saldo = saldo;
 	}
@@ -30,7 +31,11 @@ public class Usuario extends Pessoa{
 	public void setExtrato(double extrato) {
 		this.extrato = extrato;
 	}
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "Nome do usuario : " + getNome() + "\n" + " Cpf do usuario : " + getCpf() + "\n" + " Email do usuario: "
+				+ getGmail() + "\n" + " Cartão do usuario: " + getNumeroDoCartao();
+	}
+
 }
